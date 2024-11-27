@@ -1,10 +1,20 @@
 import styled from 'styled-components'
 import { cores } from '../../styles'
+import { Link } from 'react-router-dom'
 
-export const Card = styled.div`
+export const Card = styled(Link)`
   background-color: ${cores.branco};
   position: relative;
   margin-bottom: 48px;
+  text-decoration: none;
+  color: ${cores.vermelho};
+
+  img {
+    display: block;
+    width: 100%;
+    height: 217px;
+    object-fit: cover;
+  }
 `
 export const Titulo = styled.h2`
   font-weight: 700;
@@ -36,6 +46,11 @@ export const Nota = styled.span`
 
   span {
     margin-right: 8px;
+  }
+
+  img {
+    display: block;
+    height: 20px;
   }
 `
 export const Descricao = styled.p`

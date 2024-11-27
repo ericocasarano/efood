@@ -13,16 +13,16 @@ import {
 import star from '../../assets/icons/icons-star.png'
 
 type Props = {
+  id: number
   tags: string[]
   image: string
   title: string
-  nota: string
+  nota: number
   description: string
-  linkButton: string
 }
 
-const Item = ({ tags, image, title, nota, description, linkButton }: Props) => (
-  <Card>
+const Item = ({ tags, image, title, nota, description, id }: Props) => (
+  <Card to={`/perfil/${id}`}>
     <img src={image} alt={title} />
     <Tags>
       {tags.map((tag) => (
@@ -38,7 +38,7 @@ const Item = ({ tags, image, title, nota, description, linkButton }: Props) => (
         </Nota>
       </SectionTitulo>
       <Descricao>{description}</Descricao>
-      <Button type="link" title="Saiba mais" to={linkButton}>
+      <Button type="link" title="Saiba mais">
         Saiba Mais
       </Button>
     </SectionCard>
