@@ -1,12 +1,11 @@
 import Hero from '../../components/Hero'
 import ItemList from '../../components/ItemList'
-import tratoria from '../../assets/images/tratoria.png'
-import sushi from '../../assets/images/sushi.png'
-import { useEffect, useState } from 'react'
+
+import { useGetRestaurantsQuery } from '../services/api'
 
 export interface CardapioItem {
   foto: string
-  preço: number
+  preco: number
   id: number
   nome: string
   descricao: string
@@ -25,18 +24,12 @@ export type Restaurante = {
 }
 
 const Home = () => {
-  const [restaurantes, setRestaurantes] = useState<Restaurante[]>([])
-
-  useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
-      .then((res) => res.json())
-      .then((res) => setRestaurantes(res))
-  }, [])
+  const { data: restaurants, isLoading } = useGetRestaurantsQuery()
 
   return (
     <>
       <Hero />
-      <ItemList restaurantes={restaurantes} />
+      <ItemList restaurantes={restaurants || []} isLoading={isLoading} />
     </>
   )
 }

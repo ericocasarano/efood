@@ -1,12 +1,14 @@
 import { Restaurante } from '../../pages/Home'
 import Item from '../Item'
+import Loader from '../Loader'
 import { List } from './styles'
 
 type Props = {
   restaurantes: Restaurante[]
+  isLoading: boolean
 }
 
-const ItemList = ({ restaurantes }: Props) => {
+const ItemList = ({ restaurantes, isLoading }: Props) => {
   const getRestTags = (rest: Restaurante) => {
     const tags = [rest.tipo]
     if (rest.destacado) {
@@ -14,6 +16,10 @@ const ItemList = ({ restaurantes }: Props) => {
     }
 
     return tags
+  }
+
+  if (isLoading) {
+    return <Loader />
   }
 
   return (

@@ -6,6 +6,13 @@ export const Card = styled.div`
   margin-bottom: 32px;
   padding: 8px;
   color: ${cores.bege};
+
+  img {
+    display: block;
+    width: 100%;
+    height: 167px;
+    object-fit: cover;
+  }
 `
 export const Titulo = styled.h3`
   font-weight: 900;
