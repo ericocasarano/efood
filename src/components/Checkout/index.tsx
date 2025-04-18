@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import { open } from '../../store/reducers/cart'
 import Confirmacao from '../Confirmacao'
+import { useSendCheckoutMutation } from '../../pages/services/api'
 
 const entregaSchema = Yup.object({
   quemRecebera: Yup.string()
@@ -75,6 +76,8 @@ const Checkout = () => {
   )
   const [orderId, setOrderId] = useState<string | null>(null)
 
+  const [sendCheckout] = useSendCheckoutMutation()
+
   const gerarOrderId = () =>
     Math.floor(100000 + Math.random() * 900000).toString()
 
@@ -99,19 +102,52 @@ const Checkout = () => {
       anoVencimento: new Date().getFullYear()
     },
     validationSchema: etapa === 'entrega' ? entregaSchema : pagamentoSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (etapa === 'entrega') {
         setEtapa('pagamento')
       } else if (etapa === 'pagamento') {
         const novoOrderId = gerarOrderId()
         setOrderId(novoOrderId)
-        setEtapa('finalizacao')
-        console.log('Pedido finalizado:', {
-          ...values,
-          items,
-          valorTotal,
-          novoOrderId
-        })
+
+        try {
+          await sendCheckout({
+            products: items.map((item) => ({
+              id: item.id,
+              price: item.preco
+            })),
+            delivery: {
+              receiver: values.quemRecebera,
+              address: {
+                description: values.endereco,
+                city: values.cidade,
+                zipCode: values.cep,
+                number: Number(values.numero),
+                complement: values.complemento
+              }
+            },
+            payment: {
+              card: {
+                name: values.nomeCartao,
+                number: values.numeroCartao,
+                code: Number(values.cvv),
+                expires: {
+                  month: values.mesVencimento,
+                  year: values.anoVencimento
+                }
+              }
+            }
+          }).unwrap()
+
+          setEtapa('finalizacao')
+          console.log('Pedido finalizado e enviado:', {
+            ...values,
+            items,
+            valorTotal,
+            novoOrderId
+          })
+        } catch (error) {
+          console.error('Erro ao enviar pedido:', error)
+        }
       }
     }
   })
