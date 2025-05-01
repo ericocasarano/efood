@@ -38,7 +38,7 @@ const Item = ({ tags, image, title, nota, description, id }: Props) => (
         </Nota>
       </SectionTitulo>
       <Descricao>{description}</Descricao>
-      <Button type="link" title="Saiba mais">
+      <Button type="link" to={`/perfil/${id}`} title="Saiba mais">
         Saiba Mais
       </Button>
     </SectionCard>
