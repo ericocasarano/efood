@@ -14,6 +14,7 @@ const Perfil = () => {
       <BannerPerfil
         tituloRestaurante={perfil ? perfil.titulo : ''}
         tipoRestaurante={perfil ? perfil.tipo : ''}
+        capaRestaurante={perfil ? perfil.capa : ''}
         isLoading={isLoading}
       />
       <ItemListPerfil

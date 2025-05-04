@@ -1,15 +1,16 @@
 import { CategoriaBanner, ContainerBanner, TituloBanner } from './styles'
-import Loader from '../Loader' // ajuste o caminho conforme necessário
-
+import Loader from '../Loader'
 type Props = {
   tituloRestaurante: string
   tipoRestaurante: string
+  capaRestaurante: string
   isLoading: boolean
 }
 
 const BannerPerfil = ({
   tituloRestaurante,
   tipoRestaurante,
+  capaRestaurante,
   isLoading
 }: Props) => {
   if (isLoading) {
@@ -17,7 +18,7 @@ const BannerPerfil = ({
   }
 
   return (
-    <ContainerBanner>
+    <ContainerBanner style={{ backgroundImage: `url(${capaRestaurante})` }}>
       <div className="container">
         <CategoriaBanner>{tipoRestaurante}</CategoriaBanner>
         <TituloBanner>{tituloRestaurante}</TituloBanner>

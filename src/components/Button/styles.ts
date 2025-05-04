@@ -19,4 +19,5 @@ export const ButtonLink = styled(Link)`
   font-weight: 700;
   padding: 4px 6px;
   text-decoration: none;
+  width: fit-content;
 `

@@ -25,4 +25,10 @@ export const Descricao = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
